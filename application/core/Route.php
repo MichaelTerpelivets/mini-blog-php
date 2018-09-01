@@ -13,11 +13,22 @@ class Route
 
     static public function init()
     {
+        $params = [];
         if ($_SERVER['REQUEST_URI'] != '/') {
             $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             $uri_parts = explode('/', trim($path, '/'));
+            self::$controller = ucfirst(array_shift($uri_parts));
+            if (!empty($uri_parts)) {
+                self::$action = array_shift($uri_parts);
+            }
+            for ($i = 0; $i < count($uri_parts); $i++) {
+                $params[$uri_parts[$i]] = $uri_parts[++$i];
+            }
+            $_REQUEST = array_merge($_REQUEST, $params);
             //todo create routing
         }
+        $class_name = self::$controller . 'Controller';
+        $action_name = self::$action;
         $model_name = self::$controller . '.php';
         $controller_name = self::$controller . 'Controller.php';
         if (file_exists('../application/models/' . $model_name)) {
@@ -29,12 +40,10 @@ class Route
             var_dump("ERROR");
             //todo return Error
         };
-        $class_name = self::$controller . 'Controller';
-        $name = self::$action;
-        if (method_exists($controller = new $class_name, $name)) {
-            $controller->$name();
+        if (method_exists($controller = new $class_name, $action_name)) {
+            $controller->$action_name();
         } else {
-            //todo return Error`
+            //todo return Error
         }
     }
 }

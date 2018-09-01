@@ -4,7 +4,7 @@
 <body class="">
 <?php include_once "../application/view/layouts/nav_bar.php"; ?>
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('images/main-image.jpg')">
+<header class="masthead" style="background-image: url(<?= 'http://' . $_SERVER['HTTP_HOST'] . '/' ?>images/main-image.jpg)">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
