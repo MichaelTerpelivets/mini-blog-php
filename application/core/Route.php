@@ -14,6 +14,7 @@ class Route
     static $controller = "Home";
     static $action = 'view';
 
+
     /**
      * Bad routing method
      */
@@ -31,7 +32,6 @@ class Route
                 $params[$uri_parts[$i]] = $uri_parts[++$i];
             }
             $_REQUEST = array_merge($_REQUEST, $params);
-            //todo create routing
         }
         $class_name = self::$controller . 'Controller';
         $action_name = self::$action;
@@ -43,12 +43,23 @@ class Route
         if (file_exists('../application/controllers/' . $controller_name)) {
             include_once "../application/controllers/" . $controller_name;
         } else {
-            //todo return Error
+            self::show_error_404();
         };
         if (method_exists($controller = new $class_name, $action_name)) {
             $controller->$action_name();
         } else {
-            //todo return Error
+            self::show_error_404();
         }
+    }
+
+    /**
+     * Show 404 Error
+     */
+    static private function show_error_404()
+    {
+        header("HTTP/1.0 404 Not Found");
+        echo "<h1>404 Not Found</h1>";
+        echo "The page that you have requested could not be found.";
+        die();
     }
 }

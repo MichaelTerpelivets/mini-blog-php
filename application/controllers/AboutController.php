@@ -12,4 +12,12 @@ class AboutController extends Controller
     {
         parent::__construct();
     }
+
+    /**
+     * Method show page about
+     */
+    public function view()
+    {
+        $this->view->render_view('about_view.php', null, null);
+    }
 }

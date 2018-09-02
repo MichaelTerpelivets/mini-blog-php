@@ -6,6 +6,9 @@
  * Time: 14:31
  */
 
+/**
+ * Class DbConnection
+ */
 class DbConnection
 {
     private $link;

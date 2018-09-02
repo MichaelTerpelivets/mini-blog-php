@@ -12,4 +12,12 @@ class ContactController extends Controller
     {
         parent::__construct();
     }
+
+    /**
+     * Method show page contact
+     */
+    public function view()
+    {
+        $this->view->render_view('contact_view.php', null, null);
+    }
 }
