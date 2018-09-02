@@ -6,11 +6,17 @@
  * Time: 9:40
  */
 
+/**
+ * Class Route
+ */
 class Route
 {
     static $controller = "Home";
     static $action = 'view';
 
+    /**
+     * Bad routing method
+     */
     static public function init()
     {
         $params = [];
@@ -37,7 +43,6 @@ class Route
         if (file_exists('../application/controllers/' . $controller_name)) {
             include_once "../application/controllers/" . $controller_name;
         } else {
-            var_dump("ERROR");
             //todo return Error
         };
         if (method_exists($controller = new $class_name, $action_name)) {

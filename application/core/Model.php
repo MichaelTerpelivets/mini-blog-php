@@ -1,4 +1,5 @@
 <?php
+include_once '../application/core/DbConnection.php';
 
 /**
  * Base Class
@@ -6,5 +7,16 @@
  */
 abstract class Model
 {
-    
+    /**
+     * @var DbConnection
+     */
+    public $link;
+
+    /**
+     * Model constructor.
+     */
+    public function __construct()
+    {
+        $this->link = new DbConnection();
+    }
 }

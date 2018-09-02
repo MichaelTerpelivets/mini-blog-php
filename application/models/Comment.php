@@ -9,16 +9,6 @@
  */
 class Comment extends Model
 {
-    use DbConnection;
-
-    /**
-     * Comment constructor.
-     */
-    public function __construct()
-    {
-        $this->db_connect();
-    }
-
     /**
      * @param string $comment
      * @param string $username
@@ -27,8 +17,7 @@ class Comment extends Model
     public function addComment(string $comment, string $username, $article_id)
     {
         $date = date("Y-m-d H:i:s");
-        $query_add_comment = "INSERT INTO `comments` (`id`, `comment`, `user_name`, `date`, `article_id`) VALUES (NULL,'$comment','$username','$date','$article_id');";
-        $this->db->query($query_add_comment);
+        $this->link->query("INSERT INTO `comments` (`id`, `comment`, `user_name`, `date`, `article_id`) VALUES (NULL,'$comment','$username','$date','$article_id')");
     }
 
 }

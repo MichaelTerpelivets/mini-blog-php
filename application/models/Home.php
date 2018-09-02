@@ -9,18 +9,15 @@
  */
 class Home extends Model
 {
-    use DbConnection;
 
-    public function __construct()
+    /**
+     * Method get articles
+     * @return array
+     */
+    public function getArticles(): array
     {
-        $this->db_connect();
-    }
-
-    public function getArticles()
-    {
-        $query_data = "SELECT *,(SELECT COUNT(comments.article_id) FROM comments WHERE articles.id = comments.article_id) as 'comments_count' FROM `articles` ORDER BY `articles`.`date` DESC;";
-        $result = $this->db->query($query_data);
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $result = $this->link->query("SELECT *,(SELECT COUNT(comments.article_id) FROM comments WHERE articles.id = comments.article_id) as 'comments_count' FROM `articles` ORDER BY `articles`.`date` DESC;");
+        return $result;
     }
 
     /**
@@ -32,8 +29,8 @@ class Home extends Model
     public function addArticle(string $user, string $title, string $article)
     {
         $date = date("Y-m-d H:i:s");
-        $query_insert = "INSERT INTO `articles` VALUES (NULL,'$user','$title','$article','$date')";
-        $this->db->query($query_insert);
+        $this->link->execute("INSERT INTO `articles` VALUES (NULL,'$user','$title','$article','$date')");
+
     }
 
     /**
@@ -43,21 +40,10 @@ class Home extends Model
      */
     public function getArticle($id): array
     {
-        $result = [];
         $query_article_data = "SELECT * FROM `articles` WHERE `id` = $id";
         $query_comments_data = "SELECT * FROM `comments` WHERE `article_id` = $id";
-        $article = $this->db->query($query_article_data);
-        $comments = $this->db->query($query_comments_data);
-        if ($article) {
-            while ($row = $article->fetch_assoc()) {
-                $result ['article'] = $row;
-            }
-        }
-        if ($comments) {
-            while ($row = $comments->fetch_assoc()) {
-                $result ['comments'][] = $row;
-            }
-        }
+        $result ['article'] = $this->link->query($query_article_data);
+        $result ['comments'] = $this->link->query($query_comments_data);
         return $result;
     }
 
@@ -67,8 +53,7 @@ class Home extends Model
      */
     public function getPopularArticles()
     {
-        $query = "SELECT *, (SELECT COUNT(comments.article_id) FROM comments WHERE articles.id=comments.article_id) as 'comments_count' FROM articles ORDER BY `comments_count` DESC LIMIT 5;";
-        $result = $this->db->query($query);
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $result = $this->link->query("SELECT *, (SELECT COUNT(comments.article_id) FROM comments WHERE articles.id=comments.article_id) as 'comments_count' FROM articles ORDER BY `comments_count` DESC LIMIT 5;");
+        return $result;
     }
 }

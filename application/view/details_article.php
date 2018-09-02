@@ -2,18 +2,20 @@
     <div class="col-lg-8 col-md-10 mx-auto">
         <div class="post-preview">
             <h2 class="post-title">
-                <?= $data['article']['title']; ?>
+                <?= $data['article'][0]['title']; ?>
             </h2>
             <h3 class="post-subtitle">
-                <?= $data['article']['article']; ?>
+                <?= $data['article'][0]['article']; ?>
             </h3>
-            <p class="post-meta">Posted by <?= $data['article']['user_name']; ?> on <?= $data['article']['date']; ?></p>
+            <p class="post-meta">Posted by <?= $data['article'][0]['user_name']; ?>
+                on <?= $data['article'][0]['date']; ?></p>
         </div>
     </div>
 </div>
 <?php if ($data['comments']): ?>
     <h3>Comments :</h3>
     <?php foreach ($data['comments'] as $comment): ?>
+
         <div class="row">
             <p><span>Author: <?= $comment['user_name']; ?></span></p>
             <p><?= $comment['comment']; ?> </p>
@@ -25,7 +27,7 @@
 <form name="article_comments" method="POST"
       action="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/comment/add'; ?>"
 >
-    <input type="hidden" id="article_id" name="article_id" value="<?= $data['article']['id']; ?>">
+    <input type="hidden" id="article_id" name="article_id" value="<?= $data['article'][0]['id']; ?>">
     <p>
         <label>Name:</label>
         <span>*</span>
