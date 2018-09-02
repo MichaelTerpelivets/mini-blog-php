@@ -37,6 +37,4 @@
 <!-- Bootstrap core JavaScript -->
 <script src="<?= "http://" . $_SERVER['HTTP_HOST'] . "/"; ?>jquery/jquery.min.js"></script>
 <script src="<?= "http://" . $_SERVER['HTTP_HOST'] . "/"; ?>js/bootstrap.bundle.min.js"></script>
-
-<!-- Custom scripts for this template -->
-<script src="js/clean-blog.min.js"></script>
+<script src="<?= "http://" . $_SERVER['HTTP_HOST'] . "/"; ?>js/slider-articles.js"></script>

@@ -60,4 +60,15 @@ class Home extends Model
         }
         return $result;
     }
+
+    /**
+     * Method get popular articles for slider
+     * @return array|null
+     */
+    public function getPopularArticles()
+    {
+        $query = "SELECT *, (SELECT COUNT(comments.article_id) FROM comments WHERE articles.id=comments.article_id) as 'comments_count' FROM articles ORDER BY `comments_count` DESC LIMIT 5;";
+        $result = $this->db->query($query);
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
 }

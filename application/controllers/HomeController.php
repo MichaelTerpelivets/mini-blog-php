@@ -20,8 +20,8 @@ class HomeController extends Controller
     public function view()
     {
         $data = [];
-        $arr_news = $this->model->getArticles();
-        $data['arr_news'] = $arr_news;
+        $data['popular_articles'] = $this->model->getPopularArticles();
+        $data['arr_news'] = $this->model->getArticles();
         $this->view->render_view('home_view.php', null, $data);
     }
 
@@ -34,12 +34,14 @@ class HomeController extends Controller
         header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . '/home');
     }
 
-
+    /**
+     * Method details article
+     */
     public function details()
     {
-        if($_REQUEST['id']){
+        if ($_REQUEST['id']) {
             $data = $this->model->getArticle($_REQUEST['id']);
-            if($data){
+            if ($data) {
                 $this->view->render_view('details_article.php', null, $data);
             }
             //todo return error

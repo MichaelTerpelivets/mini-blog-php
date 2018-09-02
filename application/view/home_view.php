@@ -1,3 +1,35 @@
+<!-- SLIDER -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="popular">Popular:</h3>
+            <div id="testimonial-slider" class="owl-carousel">
+                <?php if (!empty($data['popular_articles'])) : ?>
+                    <?php foreach ($data['popular_articles'] as $popular_article): ?>
+                        <div class="testimonial">
+                            <div class="pic">
+                                <img src="
+                        <?= 'http://' . $_SERVER['HTTP_HOST'] . '/' ?>images/icon-bmw.png" alt="">
+                            </div>
+                            <br>
+                            <h3 class="testimonial-title">
+                                <?= $popular_article['user_name'] ?></h3>
+                            <small class="post">Comments -
+                                <?= $popular_article['comments_count'] ?></small>
+                            <p class="description">
+                                <a href="
+                                <?= 'http://' . $_SERVER['HTTP_HOST'] . '/note/view/id/' . $popular_article['id'] ?>">
+                                    <?= $popular_article['title']; ?>
+                                </a>
+                            </p>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- SLIDER -->
 <div class="section group">
     <div class="col-md-10 col-md-offset-2 cont span_2_of_3" style="margin-bottom: 30px;">
         <button style="font-size: 14px" id="content" type="button" class="addnote" data-toggle="collapse"
