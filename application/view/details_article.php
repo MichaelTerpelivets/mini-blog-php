@@ -58,7 +58,7 @@
                     <textarea class="form-control" id="comment_text" type="text" name="comment" required></textarea>
                 </div>
             </div>
-            <input type="submit" class="btn btn-primary pull-right" name="add" value="Add">
+            <input type="submit" class="btn btn-primary pull-right" value="Add">
         </form>
     </div>
 </div>

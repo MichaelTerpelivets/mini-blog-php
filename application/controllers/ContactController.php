@@ -11,7 +11,6 @@ class ContactController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->model = new Contact();
     }
 
     /**
@@ -19,7 +18,8 @@ class ContactController extends Controller
      */
     public function view()
     {
-        $data['popular_articles'] = $this->model->getPopularArticles();
+        $model = $this->model("Home");
+        $data['popular_articles'] = $model->getPopularArticles();
         $this->view->render_view('contact_view.php', null, $data);
     }
 }

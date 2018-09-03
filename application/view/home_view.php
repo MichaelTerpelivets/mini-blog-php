@@ -52,7 +52,7 @@
         <?php if (!empty($data['arr_news'])) : ?>
             <?php foreach ($data['arr_news'] as $article) : ?>
                 <div class="post-preview">
-                    <a href="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/home/details/id/' . $article['id']; ?>">
+                    <a href="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/home/details/' . $article['id']; ?>">
                         <h2 class="post-title">
                             <?= $article['title']; ?>
                         </h2>

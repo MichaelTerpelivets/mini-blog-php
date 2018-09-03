@@ -11,17 +11,17 @@ class HomeController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->model = new Home();
     }
 
     /**
      * Method show articles
      */
-    public function view()
+    public function index()
     {
+        $model = $this->model("Home");
         $data = [];
-        $data['popular_articles'] = $this->model->getPopularArticles();
-        $data['arr_news'] = $this->model->getArticles();
+        $data['popular_articles'] = $model->getPopularArticles();
+        $data['arr_news'] = $model->getArticles();
         $this->view->render_view('home_view.php', null, $data);
     }
 
@@ -30,8 +30,9 @@ class HomeController extends Controller
      */
     public function create()
     {
+        $model = $this->model("Home");
         if (isset($_POST['user_name']) && isset($_POST['title']) && isset($_POST['article'])) {
-            $this->model->addArticle(strip_tags($_POST['user_name']), strip_tags($_POST['title']), strip_tags($_POST['article']));
+            $model->addArticle(strip_tags($_POST['user_name']), strip_tags($_POST['title']), strip_tags($_POST['article']));
         }
         header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . '/home');
     }
@@ -39,12 +40,13 @@ class HomeController extends Controller
     /**
      * Method details article
      */
-    public function details()
+    public function details($id)
     {
-        if ($_REQUEST['id']) {
-            $data = $this->model->getArticle($_REQUEST['id']);
+        $model = $this->model("Home");
+        if ($id) {
+            $data = $model->getArticle($id);
             if ($data) {
-                $data['popular_articles'] = $this->model->getPopularArticles();
+                $data['popular_articles'] = $model->getPopularArticles();
                 $this->view->render_view('details_article.php', null, $data);
             } else {
                 header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . '/');

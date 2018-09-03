@@ -8,7 +8,6 @@
 
 abstract class Controller
 {
-    protected $model;
     protected $view;
 
     /**
@@ -17,5 +16,11 @@ abstract class Controller
     public function __construct()
     {
         $this->view = new View();
+    }
+
+    public function model($model)
+    {
+        require_once '../application/models/' . $model . '.php';
+        return new $model();
     }
 }

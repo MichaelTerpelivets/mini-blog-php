@@ -11,55 +11,41 @@
  */
 class Route
 {
-    static $controller = "Home";
-    static $action = 'view';
+    protected $controller = 'Home';
+    protected $method = 'index';
+    protected $params = [];
 
 
     /**
-     * Bad routing method
+     * Route constructor.
      */
-    static public function init()
+    public function __construct()
     {
-        $params = [];
-        if ($_SERVER['REQUEST_URI'] != '/') {
-            $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-            $uri_parts = explode('/', trim($path, '/'));
-            self::$controller = ucfirst(array_shift($uri_parts));
-            if (!empty($uri_parts)) {
-                self::$action = array_shift($uri_parts);
-            }
-            for ($i = 0; $i < count($uri_parts); $i++) {
-                $params[$uri_parts[$i]] = $uri_parts[++$i];
-            }
-            $_REQUEST = array_merge($_REQUEST, $params);
+        $url = $this->parserUrl();
+        if (file_exists('../application/controllers/' . ucfirst($url[0]) . 'Controller.php')) {
+            $this->controller = ucfirst($url[0]);
+            unset($url[0]);
         }
-        $class_name = self::$controller . 'Controller';
-        $action_name = self::$action;
-        $model_name = self::$controller . '.php';
-        $controller_name = self::$controller . 'Controller.php';
-        if (file_exists('../application/models/' . $model_name)) {
-            include_once "../application/models/" . $model_name;
+        require_once '../application/controllers/' . ucfirst($this->controller) . 'Controller.php';
+        $class_name = $this->controller . 'Controller';
+        $this->controller = new $class_name;
+        if (method_exists($this->controller, $url[1])) {
+            $this->method = $url[1];
+            unset($url[1]);
         }
-        if (file_exists('../application/controllers/' . $controller_name)) {
-            include_once "../application/controllers/" . $controller_name;
-        } else {
-            self::show_error_404();
-        };
-        if (method_exists($controller = new $class_name, $action_name)) {
-            $controller->$action_name();
-        } else {
-            self::show_error_404();
-        }
+        $this->params = $url ? array_values($url) : [];
+        call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
     /**
-     * Show 404 Error
+     * Method parser Url
+     * @return array
      */
-    static private function show_error_404()
+    public function parserUrl(): array
     {
-        header("HTTP/1.0 404 Not Found");
-        echo "<h1>404 Not Found</h1>";
-        echo "The page that you have requested could not be found.";
-        die();
+        if (isset($_GET['url'])) {
+            return $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
+        }
+        return [];
     }
 }
