@@ -30,7 +30,9 @@ class HomeController extends Controller
      */
     public function create()
     {
-        $this->model->addArticle(strip_tags(filter_input(INPUT_POST, 'user_name')), strip_tags(filter_input(INPUT_POST, 'title')), strip_tags(filter_input(INPUT_POST, 'Home')));
+        if (isset($_POST['user_name']) && isset($_POST['title']) && isset($_POST['article'])) {
+            $this->model->addArticle(strip_tags($_POST['user_name']), strip_tags($_POST['title']), strip_tags($_POST['article']));
+        }
         header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . '/home');
     }
 
@@ -42,10 +44,13 @@ class HomeController extends Controller
         if ($_REQUEST['id']) {
             $data = $this->model->getArticle($_REQUEST['id']);
             if ($data) {
+                $data['popular_articles'] = $this->model->getPopularArticles();
                 $this->view->render_view('details_article.php', null, $data);
+            } else {
+                header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . '/');
             }
-            //todo return error
+        } else {
+            header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . '/');
         }
-        //todo return error
     }
 }

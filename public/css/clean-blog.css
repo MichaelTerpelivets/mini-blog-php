@@ -200,11 +200,19 @@ header.masthead .site-heading {
   color: white;
 }
 
+header.masthead .site-heading {
+  padding: 100px 0 100px;
+}
+
 @media only screen and (min-width: 768px) {
   header.masthead .page-heading,
   header.masthead .post-heading,
   header.masthead .site-heading {
     padding: 200px 0;
+  }
+
+  header.masthead .site-heading {
+    padding: 100px 0;
   }
 }
 
@@ -394,7 +402,7 @@ footer .copyright {
 }
 
 .btn {
-  font-size: 14px;
+  font-size: 14px !important;
   font-weight: 800;
   padding: 15px 25px;
   letter-spacing: 1px;
@@ -409,6 +417,8 @@ footer .copyright {
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  box-shadow: none !important;
+  outline: none !important;
   color: #fff;
   background-color: #00657b !important;
   border-color: #00657b !important;

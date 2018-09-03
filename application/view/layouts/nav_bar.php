@@ -13,9 +13,6 @@
                     <a class="nav-link" href="<?= 'http://' . $_SERVER['HTTP_HOST']; ?>">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/about'; ?>">About</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/contact'; ?>">Contact</a>
                 </li>
             </ul>

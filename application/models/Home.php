@@ -30,7 +30,6 @@ class Home extends Model
     {
         $date = date("Y-m-d H:i:s");
         $this->link->execute("INSERT INTO `articles` VALUES (NULL,'$user','$title','$article','$date')");
-
     }
 
     /**
