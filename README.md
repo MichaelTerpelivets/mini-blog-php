@@ -1,4 +1,4 @@
-Simple mvc mini blog
+Simple MVC Mini-blog
 ============================
 
 
@@ -8,7 +8,6 @@ DIRECTORY STRUCTURE
       application/controllers/        contains Web controller classes
       application/models/             contains model classes
       application/core/            	  contains base classes
-      application/core/traits         contains various traits for the application
       application/views/              contains view files for the Web application
       public/                         contains the entry script and Web resources
 
