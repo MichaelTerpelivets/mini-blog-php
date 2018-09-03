@@ -33,7 +33,7 @@
                                 <small class="post">Comments -
                                     <?= $popular_article['comments_count'] ?></small>
                                 <p class="description">
-                                    <a href="
+                                    <a style="color: cornsilk" href="
                                 <?= 'http://' . $_SERVER['HTTP_HOST'] . '/home/details/' . $popular_article['id'] ?>">
                                         <?= $popular_article['title']; ?>
                                     </a>
